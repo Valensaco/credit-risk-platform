@@ -1,0 +1,84 @@
+{
+  "demographic_parity_credit": [
+    {
+      "credit_tier": "Poor (<620)",
+      "approval_rate": NaN
+    },
+    {
+      "credit_tier": "Fair (620-680)",
+      "approval_rate": 0.7622892577998838
+    },
+    {
+      "credit_tier": "Good (680-740)",
+      "approval_rate": 0.8545703581356
+    },
+    {
+      "credit_tier": "Excellent (740+)",
+      "approval_rate": 0.96103066439523
+    }
+  ],
+  "demographic_parity_income": [
+    {
+      "income_group": "Low (<40k)",
+      "approval_rate": 0.7969287469287469
+    },
+    {
+      "income_group": "Middle (40k-70k)",
+      "approval_rate": 0.8097934900749385
+    },
+    {
+      "income_group": "Upper Mid (70k-100k)",
+      "approval_rate": 0.8465971459934138
+    },
+    {
+      "income_group": "High (100k+)",
+      "approval_rate": 0.9034057197104545
+    }
+  ],
+  "equal_opportunity_credit": [
+    {
+      "credit_tier": "Poor (<620)",
+      "tpr": 0.0,
+      "fpr": 0.0
+    },
+    {
+      "credit_tier": "Fair (620-680)",
+      "tpr": 0.8193377483443709,
+      "fpr": 0.6068334937439847
+    },
+    {
+      "credit_tier": "Good (680-740)",
+      "tpr": 0.8959180599487875,
+      "fpr": 0.6867101508357114
+    },
+    {
+      "credit_tier": "Excellent (740+)",
+      "tpr": 0.9759695455626933,
+      "fpr": 0.8336713995943205
+    }
+  ],
+  "equal_opportunity_income": [
+    {
+      "income_group": "Low (<40k)",
+      "tpr": 0.8476064270332947,
+      "fpr": 0.6514503090822634
+    },
+    {
+      "income_group": "Middle (40k-70k)",
+      "tpr": 0.861029842012873,
+      "fpr": 0.6258860593331583
+    },
+    {
+      "income_group": "Upper Mid (70k-100k)",
+      "tpr": 0.8926728586171311,
+      "fpr": 0.6648575305291723
+    },
+    {
+      "income_group": "High (100k+)",
+      "tpr": 0.934114620551665,
+      "fpr": 0.7531468531468531
+    }
+  ],
+  "disparate_impact_credit": {},
+  "disparate_impact_income": {}
+}

@@ -1,0 +1,15 @@
+{
+  "model_version": "1.0.0",
+  "monitoring_period_days": 30,
+  "avg_auc": 0.7139,
+  "min_auc": 0.6318,
+  "avg_approval_rate": 0.8377,
+  "total_predictions": 3000,
+  "drift_features_detected": 7,
+  "alerts": [
+    {
+      "type": "OK",
+      "message": "All metrics within normal range"
+    }
+  ]
+}

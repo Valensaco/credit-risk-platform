@@ -1,0 +1,5 @@
+{
+  "optimal_threshold": 0.23999999999999994,
+  "strategy": "reweighting + threshold optimization",
+  "compliant": true
+}
