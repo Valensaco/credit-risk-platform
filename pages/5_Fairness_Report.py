@@ -9,7 +9,7 @@ st.set_page_config(page_title="Fairness Report", page_icon="⚖️", layout="wid
 
 @st.cache_data(ttl=0)
 def load_fairness():
-    save_path = "/content/drive/MyDrive/credit_risk_platform/data/"
+    save_path = "data/"
     with open(save_path + "fairness_summary.json") as f:
         fairness = json.load(f)
     return fairness

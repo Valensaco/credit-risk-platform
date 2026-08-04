@@ -48,8 +48,8 @@ FEATURE_LABELS = {
 
 @st.cache_resource
 def load_models():
-    model_path = "/content/drive/MyDrive/credit_risk_platform/models/"
-    data_path = "/content/drive/MyDrive/credit_risk_platform/data/"
+    model_path = "models/"
+    data_path = "data/"
     with open(model_path + "xgboost_best.pkl", "rb") as f:
         xgb = pickle.load(f)
     with open(model_path + "lightgbm_best.pkl", "rb") as f:

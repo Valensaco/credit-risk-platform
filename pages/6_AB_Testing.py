@@ -10,8 +10,8 @@ st.set_page_config(page_title="A/B Testing", page_icon="🧪", layout="wide")
 
 @st.cache_data
 def load_data():
-    save_path = "/content/drive/MyDrive/credit_risk_platform/data/"
-    model_path = "/content/drive/MyDrive/credit_risk_platform/models/"
+    save_path = "data/"
+    model_path = "models/"
     X_test = pd.read_parquet(save_path + "X_test_best.parquet")
     y_test = pd.read_parquet(save_path + "y_test_best.parquet").squeeze()
     with open(model_path + "xgboost_best.pkl", "rb") as f:

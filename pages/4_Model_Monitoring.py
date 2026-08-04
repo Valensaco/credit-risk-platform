@@ -47,7 +47,7 @@ FEATURE_LABELS = {
 
 @st.cache_data
 def load_monitoring():
-    save_path = "/content/drive/MyDrive/credit_risk_platform/data/"
+    save_path = "data/"
     monitoring_df = pd.read_parquet(save_path + "monitoring_data.parquet")
     drift_df = pd.read_parquet(save_path + "drift_results.parquet")
     with open(save_path + "model_health.json") as f:
