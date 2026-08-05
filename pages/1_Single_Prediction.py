@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -6,6 +7,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Single Prediction", page_icon="📝", layout="wide")
 
+# Human readable feature names
 FEATURE_LABELS = {
     "int_rate": "Interest Rate",
     "term": "Loan Term",
@@ -54,13 +56,8 @@ def load_models():
         lgbm = pickle.load(f)
     with open(model_path + "isolation_forest.pkl", "rb") as f:
         iso = pickle.load(f)
-    # XGBoost chosen for SHAP because TreeExplainer is faster and more accurate
-    # with gradient boosted trees than with LightGBM in this setup
-    try:
-        with open(model_path + "shap_explainer_xgb.pkl", "rb") as f:
-            explainer = pickle.load(f)
-    except:
-        explainer = None
+    with open(model_path + "shap_explainer_xgb.pkl", "rb") as f:
+        explainer = pickle.load(f)
     with open(data_path + "feature_names.pkl", "rb") as f:
         feature_names = pickle.load(f)
     return xgb, lgbm, iso, explainer, feature_names
@@ -147,24 +144,19 @@ if st.button("🔍 Analyze Risk", use_container_width=True):
         df = prepare_features(inputs)
         xgb_prob = xgb.predict_proba(df)[0][1]
         lgbm_prob = lgbm.predict_proba(df)[0][1]
-        # Average of both models — reduces variance compared to using either alone
         default_prob = (xgb_prob + lgbm_prob) / 2
 
         risk_label = "LOW" if default_prob < 0.25 else "HIGH" if default_prob > 0.60 else "MEDIUM"
-        # 0.35 threshold chosen to maintain ~76% approval rate on test set
         decision = "✅ APPROVED" if default_prob < 0.35 else "❌ DENIED" if default_prob > 0.60 else "⚠️ MANUAL REVIEW"
         fraud_score = float(np.clip(-iso.score_samples(df)[0] * 10, 0, 100))
 
-        if explainer is not None:
-            shap_vals = explainer.shap_values(df)
-            shap_df = pd.DataFrame({
-                "feature": feature_names,
-                "label": [FEATURE_LABELS.get(f, f) for f in feature_names],
-                "impact": shap_vals[0],
-                "abs_impact": np.abs(shap_vals[0])
-            }).sort_values("abs_impact", ascending=False).head(10)
-        else:
-            shap_df = None
+        shap_vals = explainer.shap_values(df)
+        shap_df = pd.DataFrame({
+            "feature": feature_names,
+            "label": [FEATURE_LABELS.get(f, f) for f in feature_names],
+            "impact": shap_vals[0],
+            "abs_impact": np.abs(shap_vals[0])
+        }).sort_values("abs_impact", ascending=False).head(10)
 
     st.markdown("## 📊 Assessment Results")
     col1, col2, col3, col4 = st.columns(4)
@@ -200,22 +192,19 @@ if st.button("🔍 Analyze Risk", use_container_width=True):
 
     with col2:
         st.markdown("#### 🔍 Top Risk Factors")
-        if shap_df is not None:
-            colors = ["red" if v > 0 else "green" for v in shap_df["impact"]]
-            fig2 = go.Figure(go.Bar(
-                x=shap_df["impact"],
-                y=shap_df["label"],
-                orientation="h",
-                marker_color=colors
-            ))
-            fig2.update_layout(
-                xaxis_title="Impact on Risk",
-                yaxis_title="",
-                height=400
-            )
-            st.plotly_chart(fig2, use_container_width=True)
-        else:
-            st.warning("SHAP explainer unavailable.")
+        colors = ["red" if v > 0 else "green" for v in shap_df["impact"]]
+        fig2 = go.Figure(go.Bar(
+            x=shap_df["impact"],
+            y=shap_df["label"],
+            orientation="h",
+            marker_color=colors
+        ))
+        fig2.update_layout(
+            xaxis_title="Impact on Risk",
+            yaxis_title="",
+            height=400
+        )
+        st.plotly_chart(fig2, use_container_width=True)
 
     st.markdown("#### 📋 Recommended Actions")
     if default_prob < 0.35:
@@ -224,4 +213,3 @@ if st.button("🔍 Analyze Risk", use_container_width=True):
         st.error("❌ **Deny** - High default risk. Consider requesting additional documentation.")
     else:
         st.warning("⚠️ **Manual Review** - Borderline case. Recommend human underwriter review.")
-    return xgb, lgbm, iso, explainer, feature_names
