@@ -61,4 +61,4 @@ def load_models():
         explainer = pickle.load(f)
     with open(data_path + "feature_names.pkl", "rb") as f:
         feature_names = pickle.load(f)
-    return xgb, lgbm, iso, explainer,
+    return xgb, lgbm, iso, explainer, feature_names
