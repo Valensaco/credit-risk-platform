@@ -1,0 +1,8 @@
+group_type,group,approval_rate
+Credit tier,Fair (620-680),0.7622892577998838
+Credit tier,Good (680-740),0.8545703581356
+Credit tier,Excellent (740+),0.96103066439523
+Income group,Low (<40k),0.7969287469287469
+Income group,Middle (40k-70k),0.8097934900749385
+Income group,Upper Mid (70k-100k),0.8465971459934138
+Income group,High (100k+),0.9034057197104545
