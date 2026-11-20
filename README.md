@@ -55,3 +55,10 @@ Banks and lenders are not allowed by federal law such as ECOA to discriminate pe
 - How SHAP values work and why explainability matters in regulated industries.
 - How model monitoring and drift detection work in production.
 - How fairness metrics are calculated and what regulatory compliance looks like.
+
+
+## Power BI dashboard
+
+![Power BI model monitoring dashboard](powerbi/dashboard-preview.png)
+
+A Power BI report built on the platform's monitoring outputs. It has KPI cards for average AUC, approval rate and default probability, line charts of AUC and approval rate over 30 days, a bar chart of feature drift (KS statistic) and an approval rate chart by credit tier or income group with a slicer. The data is in `powerbi/data/`.
